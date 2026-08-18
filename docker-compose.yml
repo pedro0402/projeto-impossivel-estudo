@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=estudo
+    ports:
+      - "5432:5432" #PORTA DA MAQUINA : PORTA DO CONTAINER
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin", "-d", "estudo"]
+      timeout: 5s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgres/data
+volumes:
+  pgdata:
