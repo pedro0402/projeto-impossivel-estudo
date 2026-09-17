@@ -6,8 +6,8 @@ use App\Models\Usuario;
 
 class UsuarioRepository
 {
-    public function criarUsuario(array $usuario) 
+    public function criarUsuario(array $dadosUsuario) 
     {
-        return Usuario::create($usuario);
+        return Usuario::create($dadosUsuario);
     }
 }
