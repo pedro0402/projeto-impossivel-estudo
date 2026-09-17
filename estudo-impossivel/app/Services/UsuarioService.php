@@ -23,7 +23,7 @@ class UsuarioService
             'email' => $dadosUsuario->getEmail(),
             'senha' => Hash::make($dadosUsuario->getSenha()),
             'endereco' => $dadosUsuario->getEndereco(),
-            'perfil' => $dadosUsuario->getPerfil(),
+            'perfil' => $dadosUsuario->getPerfil()->value,
         ];
 
         return $this->usuarioRepository->criarUsuario($dadosParaSalvar);

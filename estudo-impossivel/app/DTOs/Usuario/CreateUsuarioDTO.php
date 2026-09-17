@@ -2,15 +2,17 @@
 
 namespace App\DTOs\Usuario;
 
+use App\Enums\PerfilUsuario;
+
 class CreateUsuarioDTO 
 {
     readonly string $nome;
     readonly string $email;
     readonly string $senha;
     readonly ?string $endereco;
-    readonly string $perfil;
+    readonly PerfilUsuario $perfil;
 
-    public function __construct(string $nome, string $email, string $senha, ?string $endereco, string $perfil)
+    public function __construct(string $nome, string $email, string $senha, ?string $endereco, PerfilUsuario $perfil)
     {
         $this->nome = $nome;
         $this->email = $email;
@@ -55,7 +57,7 @@ class CreateUsuarioDTO
     /**
      * Get the value of perfil
      */ 
-    public function getPerfil():string
+    public function getPerfil():PerfilUsuario
     {
         return $this->perfil;
     }
