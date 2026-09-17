@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTOs\Usuario\CreateUsuarioDTO;
 use App\Repositories\UsuarioRepository;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,12 +15,18 @@ class UsuarioService
         $this->usuarioRepository = $usuarioRepository;
     }
 
-    public function criarUsuario(array $dadosUsuario) 
+    public function criarUsuario(CreateUsuarioDTO $dadosUsuario) 
     {
         
-        $dadosUsuario['senha'] =  Hash::make($dadosUsuario['senha']);
+        $dadosParaSalvar = [
+            'nome' => $dadosUsuario->getNome(),
+            'email' => $dadosUsuario->getEmail(),
+            'senha' => Hash::make($dadosUsuario->getSenha()),
+            'endereco' => $dadosUsuario->getEndereco(),
+            'perfil' => $dadosUsuario->getPerfil(),
+        ];
 
-        return $this->usuarioRepository->criarUsuario($dadosUsuario);
+        return $this->usuarioRepository->criarUsuario($dadosParaSalvar);
 
     }
 }
