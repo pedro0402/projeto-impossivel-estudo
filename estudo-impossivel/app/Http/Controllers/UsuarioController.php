@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\Usuario\CreateUsuarioDTO;
 use App\Services\UsuarioService;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,7 @@ class UsuarioController extends Controller
 
     public function store(Request $request) 
     {
+
         $dadosValidos = $request->validate([
             'nome' => 'required|string|min:3',
             'email' => 'required|email|unique:usuarios,email',
@@ -26,7 +28,9 @@ class UsuarioController extends Controller
             'perfil' => 'required',
         ]);
 
-        $usuarioCriado = $this->usuarioService->criarUsuario($dadosValidos);
+        $usuarioDTO = new CreateUsuarioDTO($dadosValidos['nome'], $dadosValidos['email'], $dadosValidos['senha'], $dadosValidos['endereco'], $dadosValidos['perfil']);
+
+        $usuarioCriado = $this->usuarioService->criarUsuario($usuarioDTO);
 
         return response()->json($usuarioCriado, 201);
     }
